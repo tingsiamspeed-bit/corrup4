@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anime Academy | ภารกิจต้านทุจริต</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap');
+*{box-sizing:border-box}
+body{
+ margin:0;font-family:Kanit,sans-serif;color:#493b62;
+ background:linear-gradient(145deg,#fff0f6,#eee7ff,#e4f4ff);
+ min-height:100vh;
+}
+.container{max-width:850px;margin:auto;padding:15px}
+.hero{
+ position:relative;overflow:hidden;text-align:center;
+ border-radius:28px;padding:24px 15px;
+ color:white;
+ background:linear-gradient(140deg,#ff8dbd,#a78bfa,#78b8ff);
+ box-shadow:0 12px 30px #9b83d455;
+}
+.hero:before{content:"🌸 ✨ 🌸 ✨ 🌸";position:absolute;top:8px;left:8px;opacity:.6}
+.hero:after{content:"🌸 ✨ 🌸 ✨ 🌸";position:absolute;bottom:8px;right:8px;opacity:.6}
+.hero h1{font-size:29px;margin:8px 0}
+.hero p{margin:5px}
+.anime{
+ display:flex;justify-content:center;align-items:center;
+ gap:15px;margin:15px auto;
+}
+.character{
+ font-size:78px;filter:drop-shadow(0 5px 5px #66508055);
+ animation:bounce 2s infinite ease-in-out;
+}
+.character:nth-child(2){animation-delay:.4s}
+@keyframes bounce{50%{transform:translateY(-9px)}}
+.panel{
+ background:#ffffffed;border:2px solid white;
+ border-radius:23px;padding:22px;margin-top:17px;
+ box-shadow:0 8px 25px #8670b522;
+}
+h2{color:#9b68c9;margin-top:0}
+input{
+ width:100%;padding:13px;border:2px solid #e7d6ff;
+ border-radius:13px;font-family:inherit;font-size:16px;
+ margin:8px 0 15px;outline:none;
+}
+input:focus{border-color:#bd85e8}
+button{
+ border:0;border-radius:15px;padding:13px 19px;
+ font-family:inherit;font-size:16px;font-weight:600;
+ cursor:pointer;transition:.2s;
+}
+button:hover{filter:brightness(1.04);transform:translateY(-2px)}
+.primary{background:linear-gradient(100deg,#ee8cbe,#a68af5);color:white}
+.secondary{background:#f0e7ff;color:#8457bd}
+.green{background:#83d9bb;color:#245e50}
+.hidden{display:none!important}
+.progress{
+ height:13px;background:#eee7f7;border-radius:20px;
+ overflow:hidden;margin:13px 0;
+}
+.bar{height:100%;width:0;background:linear-gradient(90deg,#ff9bc8,#a58aff);transition:.3s}
+.info{display:flex;justify-content:space-between;gap:8px;font-size:14px}
+.question{font-size:20px;line-height:1.6;font-weight:600;margin:17px 0}
+.option{
+ display:flex;align-items:center;gap:12px;
+ border:2px solid #eee4f8;background:#fffaff;
+ border-radius:15px;padding:13px;margin:10px 0;
+ cursor:pointer;transition:.2s;
+}
+.option:hover{background:#fff0f7;border-color:#edacd0}
+.option.selected{background:#f4eaff;border-color:#a981dc}
+.option input{width:19px;height:19px;margin:0;accent-color:#a981dc}
+.actions{display:flex;gap:10px;margin-top:20px}
+.actions button{flex:1}
+.result{text-align:center}
+.score{font-size:65px;font-weight:700;color:#aa78d8}
+.review{text-align:left;background:#fff5fa;border-radius:14px;padding:13px;margin:10px 0}
+.correct{color:#21966c;font-weight:bold}
+.wrong{color:#e45b82;font-weight:bold}
+footer{text-align:center;padding:20px;color:#9b83a9;font-size:13px}
+@media(max-width:480px){
+ .hero h1{font-size:24px}
+ .character{font-size:60px}
+ .question{font-size:18px}
+ button{font-size:14px}
+}
+@media print{
+ body{background:white}
+ .hero,.panel{box-shadow:none}
+ button,.actions{display:none!important}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="hero">
+ <div style="font-size:20px">🌸 SAKURA SCHOOL 🌸</div>
+ <div class="anime">
+  <div class="character">👧🏻</div>
+  <div class="character">👦🏻</div>
+ </div>
+ <h1>ANIME ACADEMY</h1>
+ <h2 style="color:white;margin:5px">ภารกิจพิชิตการทุจริต</h2>
+ <p>วิชาการป้องกันการทุจริต ชั้นประถมศึกษาปีที่ 4</p>
+ <p>⭐ 20 QUESTIONS • 20 POINTS ⭐</p>
+</header>
+
+<section class="panel" id="start">
+ <h2>🎀 ยินดีต้อนรับเข้าสู่โรงเรียนอนิเมะ</h2>
+ <p>พร้อมแล้วหรือยัง? มาร่วมภารกิจเป็นฮีโร่แห่งความซื่อสัตย์กัน!</p>
+ <div class="anime">
+  <div class="character">👩🏻‍🎓</div>
+  <div class="character">👨🏻‍🎓</div>
+ </div>
+ <label>ชื่อ-นามสกุลนักเรียน</label>
+ <input id="student" placeholder="กรอกชื่อและนามสกุล">
+ <label>ชั้นเรียน</label>
+ <input id="room" value="ป.4">
+ <button class="primary" style="width:100%" onclick="startQuiz()">🌸 เริ่มภารกิจ</button>
+</section>
+
+<section class="panel hidden" id="quiz">
+ <div class="info">
+  <b>🌸 ANIME QUIZ</b>
+  <b id="count">ข้อ 1 / 20</b>
+ </div>
+ <div class="progress"><div class="bar" id="bar"></div></div>
+ <div class="anime" style="margin:5px">
+  <div class="character" style="font-size:48px">👧🏻</div>
+  <div style="font-size:13px;color:#a276c9">สู้ ๆ นะ! เธอทำได้ ✨</div>
+ </div>
+ <div class="question" id="question"></div>
+ <div id="options"></div>
+ <div class="actions">
+  <button class="secondary" onclick="previous()">⬅ ก่อนหน้า</button>
+  <button class="primary" onclick="nextQuestion()" id="next">ถัดไป ➜</button>
+ </div>
+</section>
+
+<section class="panel hidden result" id="result">
+ <div style="font-size:70px" id="trophy">🏆</div>
+ <h2>MISSION COMPLETE!</h2>
+ <p id="studentResult"></p>
+ <div class="score" id="score">0/20</div>
+ <h2 id="grade"></h2>
+ <p id="message"></p>
+ <div class="anime">
+  <div class="character">👧🏻</div>
+  <div class="character">👦🏻</div>
+ </div>
+ <button class="green" onclick="showReview()">📖 ดูเฉลย</button>
+ <button class="secondary" onclick="window.print()">🖨 พิมพ์ผลสอบ</button>
+ <button class="primary" onclick="location.reload()">🔄 เริ่มใหม่</button>
+ <div id="review"></div>
+</section>
+
+<footer>
+ 🌸 ANIME ACADEMY 🌸
+ <br>สื่อการเรียนรู้วิชาการป้องกันการทุจริต
+ <br>ผู้จัดทำ: ครูปรเมศวร์ ฟองลม
+</footer>
+</div>
+
+<script>
+const questions=[
+["ความซื่อสัตย์สุจริตหมายถึงข้อใด",["การพูดความจริงและไม่โกงผู้อื่น","การทำทุกอย่างตามใจตนเอง","การเอาของผู้อื่นมาเป็นของตน","การช่วยเพื่อนทำผิดกฎ"],0,"คนซื่อสัตย์ต้องพูดความจริงและไม่เอาเปรียบผู้อื่น"],
+["นักเรียนเก็บเงินได้บริเวณสนามโรงเรียน ควรทำอย่างไร",["นำไปซื้อขนม","แบ่งเงินให้เพื่อน","ส่งให้ครูเพื่อประกาศหาเจ้าของ","เก็บไว้โดยไม่บอกใคร"],2,"ควรส่งเงินให้ครูเพื่อติดตามหาเจ้าของ"],
+["ขณะสอบเห็นเพื่อนเปิดหนังสือดูคำตอบ ควรทำอย่างไร",["เปิดหนังสือดูตาม","ทำข้อสอบด้วยตนเองอย่างซื่อสัตย์","ขอคำตอบจากเพื่อน","ส่งคำตอบให้เพื่อน"],1,"ควรทำข้อสอบด้วยความสามารถของตนเอง"],
+["ข้อใดเป็นพฤติกรรมของคนซื่อสัตย์",["โกหกเพื่อไม่ให้ถูกลงโทษ","ลอกการบ้านเพื่อน","แอบหยิบของเพื่อน","ยอมรับเมื่อทำสิ่งผิดพลาด"],3,"การยอมรับความจริงเป็นพื้นฐานของความซื่อสัตย์"],
+["หากทำแก้วน้ำของโรงเรียนแตก ควรทำอย่างไร",["เดินหนีไป","โทษเพื่อน","แจ้งครูและยอมรับความจริง","แอบนำเศษแก้วไปทิ้ง"],2,"ควรรับผิดชอบต่อการกระทำของตน"],
+["ข้อใดเป็นทรัพย์สินส่วนรวม",["กระเป๋านักเรียน","โต๊ะและเก้าอี้ในห้องเรียน","ดินสอส่วนตัว","รองเท้าของตนเอง"],1,"โต๊ะและเก้าอี้ในห้องเรียนเป็นของที่ทุกคนใช้ร่วมกัน"],
+["นำกระดาษของโรงเรียนไปใช้ส่วนตัวจำนวนมากโดยไม่ได้รับอนุญาต เป็นการกระทำแบบใด",["ใช้ทรัพย์สินส่วนรวมเพื่อประโยชน์ส่วนตน","ช่วยประหยัดค่าใช้จ่าย","ช่วยเหลือครู","ดูแลโรงเรียน"],0,"ไม่ควรนำทรัพย์สินส่วนรวมไปใช้ส่วนตัวโดยไม่ได้รับอนุญาต"],
+["ข้อใดเป็นการใช้ประโยชน์ส่วนรวมอย่างเหมาะสม",["ขีดเขียนโต๊ะเรียน","ทำลายหนังสือห้องสมุด","นำอุปกรณ์กลับบ้าน","ช่วยกันรักษาความสะอาดสนามโรงเรียน"],3,"การรักษาความสะอาดเป็นหน้าที่ของทุกคน"],
+["เมื่อนักเรียนใช้สนามเด็กเล่นเสร็จแล้วควรทำอย่างไร",["ทิ้งขยะไว้","เก็บของเล่นและรักษาความสะอาด","ทำลายอุปกรณ์","ห้ามเพื่อนเล่น"],1,"ควรดูแลสถานที่และอุปกรณ์ให้สะอาด"],
+["ข้อใดแสดงถึงการเห็นแก่ประโยชน์ส่วนรวม",["แย่งของเล่น","เก็บอุปกรณ์ไว้คนเดียว","แบ่งปันอุปกรณ์ให้เพื่อนใช้ร่วมกัน","ไม่ช่วยงานกลุ่ม"],2,"การแบ่งปันทำให้ทุกคนได้รับประโยชน์"],
+["เหตุใดจึงควรปฏิบัติตามกฎของโรงเรียน",["เพื่อให้ทุกคนอยู่ร่วมกันอย่างเป็นระเบียบ","เพื่อให้ครูไม่ต้องทำงาน","เพื่อกลับบ้านเร็วขึ้น","เพื่อให้ตนเองมีสิทธิพิเศษ"],0,"กฎช่วยให้ทุกคนอยู่ร่วมกันอย่างสงบสุข"],
+["หากเห็นเพื่อนแซงคิวซื้ออาหาร ควรทำอย่างไร",["แซงตาม","ผลักเพื่อน","ไม่สนใจ","เตือนให้เข้าแถวตามลำดับ"],3,"การเข้าแถวเป็นการเคารพสิทธิของผู้อื่น"],
+["การทำเวรประจำวันแสดงถึงคุณธรรมข้อใด",["ความเห็นแก่ตัว","ความรับผิดชอบ","ความประมาท","ความเกียจคร้าน"],1,"การทำเวรเป็นความรับผิดชอบต่อหน้าที่"],
+["หากเพื่อนชวนขโมยอุปกรณ์โรงเรียน ควรทำอย่างไร",["ทำตามเพื่อน","ช่วยซ่อนของ","ปฏิเสธและบอกให้เพื่อนหยุด","นำของไปแบ่งกัน"],2,"ควรปฏิเสธการกระทำที่ไม่ถูกต้อง"],
+["ข้อใดเป็นการปฏิบัติตามกฎระเบียบ",["เข้าแถวซื้ออาหารตามลำดับ","วิ่งแซงคิว","ทิ้งขยะลงพื้น","ส่งเสียงดังในห้องสมุด"],0,"การเข้าแถวเป็นการเคารพกฎระเบียบ"],
+["การทุจริตหมายถึงข้อใด",["การช่วยเหลือผู้อื่น","การทำงานสุจริต","การรักษาของส่วนรวม","การใช้อำนาจหรือหน้าที่โดยไม่ถูกต้องเพื่อประโยชน์ที่ไม่ควรได้"],3,"การทุจริตเป็นการกระทำที่ไม่ถูกต้อง"],
+["หากเพื่อนให้ขนมเพื่อขอให้ช่วยโกงข้อสอบ ควรทำอย่างไร",["รับขนมและช่วยเพื่อน","ปฏิเสธและไม่ช่วยโกงข้อสอบ","รับขนมแต่ไม่บอกครู","ชวนเพื่อนมาโกงด้วย"],1,"ไม่ควรรับผลประโยชน์เพื่อแลกกับการทำผิด"],
+["การไม่ยอมรับการทุจริตมีประโยชน์อย่างไร",["ทำให้เห็นแก่ตัว","ทำให้ทะเลาะกัน","ทำให้สังคมมีความยุติธรรมและน่าอยู่","ทำให้ไม่ต้องรับผิดชอบ"],2,"การต่อต้านการทุจริตช่วยสร้างสังคมที่เป็นธรรม"],
+["ข้อใดเป็นการต่อต้านการทุจริตในโรงเรียน",["ไม่ยอมให้เพื่อนลอกการบ้าน","ช่วยเพื่อนโกงข้อสอบ","แอบนำเงินห้องไปใช้","ปกปิดความผิดทุกครั้ง"],0,"การไม่สนับสนุนการโกงเป็นการต่อต้านทุจริต"],
+["นักเรียนที่ดีควรปฏิบัติตนอย่างไร",["คิดถึงแต่ตนเอง","เอาเปรียบผู้อื่น","ไม่สนใจกฎระเบียบ","ซื่อสัตย์ มีวินัย และรับผิดชอบต่อส่วนรวม"],3,"พลเมืองที่ดีต้องมีความซื่อสัตย์และรับผิดชอบ"]
+];
+
+let current=0;
+let answers=Array(20).fill(null);
+let name="",room="";
+
+function startQuiz(){
+ name=document.getElementById("student").value.trim();
+ room=document.getElementById("room").value.trim();
+ if(!name){alert("กรุณากรอกชื่อก่อนเริ่มภารกิจ");return}
+ document.getElementById("start").classList.add("hidden");
+ document.getElementById("quiz").classList.remove("hidden");
+ render();
+}
+function render(){
+ let q=questions[current];
+ document.getElementById("count").textContent=`ข้อ ${current+1} / 20`;
+ document.getElementById("bar").style.width=((current+1)*5)+"%";
+ document.getElementById("question").textContent=`ข้อ ${current+1}. ${q[0]}`;
+ document.getElementById("options").innerHTML=q[1].map((v,i)=>`
+ <label class="option ${answers[current]===i?'selected':''}">
+ <input type="radio" name="answer" ${answers[current]===i?'checked':''} onchange="selectAnswer(${i})">
+ <span>${["ก","ข","ค","ง"][i]}. ${v}</span>
+ </label>`).join("");
+ document.getElementById("next").textContent=current===19?"ส่งคำตอบ 🏆":"ถัดไป ➜";
+}
+function selectAnswer(i){
+ answers[current]=i;render();
+}
+function previous(){
+ if(current>0){current--;render()}
+}
+function nextQuestion(){
+ if(answers[current]===null){alert("กรุณาเลือกคำตอบก่อน");return}
+ if(current<19){current++;render();return}
+ if(answers.includes(null)){alert("กรุณาตอบให้ครบทุกข้อ");return}
+ if(confirm("ยืนยันส่งคำตอบหรือไม่?"))finish();
+}
+function finish(){
+ let score=questions.reduce((s,q,i)=>s+(answers[i]===q[2]?1:0),0);
+ document.getElementById("quiz").classList.add("hidden");
+ document.getElementById("result").classList.remove("hidden");
+ document.getElementById("studentResult").textContent=`${name} | ชั้น ${room}`;
+ document.getElementById("score").textContent=score+"/20";
+ let grade=score>=18?"ดีเยี่ยม 🌟":score>=15?"ดี 😊":score>=12?"พอใช้ 🌸":"ควรปรับปรุง 💪";
+ document.getElementById("grade").textContent=grade;
+ document.getElementById("message").textContent=
+ score>=18?"สุดยอด! เธอคือฮีโร่แห่งความซื่อสัตย์":score>=15?"เก่งมาก! รักษาความดีต่อไป":score>=12?"ทำได้ดี ลองทบทวนอีกนิดนะ":"ไม่เป็นไร! ฝึกฝนอีกครั้งแล้วจะเก่งขึ้น";
+ document.getElementById("trophy").textContent=score>=15?"🏆":"🌱";
+}
+function showReview(){
+ let html="<h2>🌸 เฉลยภารกิจ</h2>";
+ questions.forEach((q,i)=>{
+ let ok=answers[i]===q[2];
+ html+=`<div class="review">
+ <b>ข้อ ${i+1}. ${q[0]}</b><br>
+ <span class="${ok?'correct':'wrong'}">${ok?'✓ ตอบถูก':'✗ ตอบผิด'}</span><br>
+ คำตอบ: <b>${["ก","ข","ค","ง"][q[2]]}. ${q[1][q[2]]}</b><br>
+ <small>${q[3]}</small>
+ </div>`;
+ });
+ document.getElementById("review").innerHTML=html;
+ document.getElementById("review").scrollIntoView({behavior:"smooth"});
+}
+</script>
+</body>
+</html>
